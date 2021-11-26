@@ -1,5 +1,6 @@
 import { Board } from "./board/Board";
 import { EnglishBoard } from "./board/EnglishBoard";
+import { countPegs } from "./countPegs";
 import { AsciiRenderer } from "./render/AsciiRenderer";
 import { applyTurnList, turnListFromString } from "./rules";
 
@@ -25,6 +26,11 @@ Here's the initial board: \`\`\`\n${new AsciiRenderer().render(
 
       try {
         this.boards[channel] = applyTurnList(this.boards[channel], turnList);
+
+        if (countPegs(this.boards[channel]) === 1) {
+          return "Yay!  You've one (peg left), errr, won! :tada: :partyparrot:";
+        }
+
         return `\`\`\`${new AsciiRenderer().render(
           this.boards[channel]
         )}\`\`\``;
