@@ -24,11 +24,6 @@
     "url": "https://github.com/stesie/slackitaire"
   },
   "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch",
-    "express"
-  ],
   "devDependencies": {
     "localtunnel": "^2.0.2",
     "nodemon": "^2.0.15"
