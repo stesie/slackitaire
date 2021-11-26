@@ -17,7 +17,7 @@ export class AsciiRenderer {
           (!board.isValidPosition(x, y)
             ? " "
             : board.hasPegAt(x, y)
-            ? "."
+            ? "·"
             : "o");
       }
       result += "\n";

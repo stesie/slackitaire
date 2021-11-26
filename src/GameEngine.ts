@@ -13,7 +13,9 @@ export class GameEngine {
 
     if (input === "start") {
       this.boards[channel] = new EnglishBoard();
-      return `Okay.  Let's start :+1:\nHere's the initial board: \`\`\`\n${new AsciiRenderer().render(
+      return `Okay.  Let's start :+1:
+Pegs are indicated by \`·\`, empty holes by \`o\`.  For rules see: https://en.wikipedia.org/wiki/Peg_solitaire
+Here's the initial board: \`\`\`\n${new AsciiRenderer().render(
         this.boards[channel]
       )}\`\`\`\nNow try a turn like \`b4-d4\`.`;
     }
