@@ -7,6 +7,21 @@ export interface Turn {
   endY: number;
 }
 
+export function turnFromString(str: string): Turn {
+  const matches = str.match(/^([a-z])(\d+)-([a-z])(\d+)$/);
+
+  if (!matches) {
+    throw new Error("invalid syntax");
+  }
+
+  return {
+    startX: matches[1].charCodeAt(0) - 97,
+    startY: Number.parseInt(matches[2], 10) - 1,
+    endX: matches[3].charCodeAt(0) - 97,
+    endY: Number.parseInt(matches[4], 10) - 1,
+  };
+}
+
 export function turn(board: Board, turn: Turn): Board {
   if (!board.isValidPosition(turn.startX, turn.startY)) {
     throw new Error("start position is not valid");

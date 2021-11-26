@@ -1,5 +1,16 @@
 import { EnglishBoard } from "./board/EnglishBoard";
-import { turn, Turn } from "./GameEngine";
+import { turn, Turn, turnFromString } from "./GameEngine";
+
+describe("#turnFromString", () => {
+  it("converts string to Turn interface", () => {
+    expect(turnFromString("b4-d4")).toStrictEqual({
+      startX: 1,
+      startY: 3,
+      endX: 3,
+      endY: 3,
+    });
+  });
+});
 
 describe("#turn", () => {
   it("checks start for valid position", () => {
