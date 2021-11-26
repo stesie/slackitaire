@@ -1,4 +1,5 @@
 import { Board } from "./board/Board";
+import { DiamondBoard } from "./board/DiamondBoard";
 import { EnglishBoard } from "./board/EnglishBoard";
 import { countPegs } from "./countPegs";
 import { AsciiRenderer } from "./render/AsciiRenderer";
@@ -48,8 +49,15 @@ Here's the initial board: \`\`\`\n${new AsciiRenderer().render(
       return `\`\`\`${new AsciiRenderer().render(this.boards[channel])}\`\`\``;
     }
 
+    if (input === "diamond") {
+      this.boards[channel] = new DiamondBoard();
+      return `\`\`\`${new AsciiRenderer().render(this.boards[channel])}\`\`\``;
+    }
+
     if (input === "help") {
-      return "Start a new game with `start`.  Then try turns like `b4-d4`.\nTo just reprint the game, try `rerender`.";
+      return `Start a new game with \`start\`.  Then try turns like \`b4-d4\`.
+To just reprint the game, try \`rerender\`.
+If you're fancy, you might want to try \`diamond\` :gem:`;
     }
 
     return "Sorry.  I didn't get that. Maybe try `help`.";
