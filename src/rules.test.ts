@@ -1,5 +1,5 @@
 import { EnglishBoard } from "./board/EnglishBoard";
-import { turn, Turn, turnFromString, turnListFromString } from "./GameEngine";
+import { turn, Turn, turnFromString, turnListFromString } from "./rules";
 
 describe("#turnFromString", () => {
   it("converts string to Turn interface", () => {

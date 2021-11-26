@@ -1,10 +1,11 @@
 {
-  "name": "bolt-app-template",
+  "name": "slackitaire",
   "version": "0.0.1",
-  "description": "A basic template to spin up a Bolt app for Slack",
-  "main": "app.js",
+  "description": "A simple slack bot to play peg solitaire.",
+  "main": "src/slackapp.ts",
   "scripts": {
-    "start": "ts-node src/slackapp.ts"
+    "start": "ts-node src/slackapp.ts",
+    "cli": "ts-node src/cli.ts"
   },
   "dependencies": {
     "@slack/bolt": "^3.8.1",
@@ -20,7 +21,7 @@
     "node": "*"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/bolt-app-template"
+    "url": "https://github.com/stesie/slackitaire"
   },
   "license": "MIT",
   "keywords": [
