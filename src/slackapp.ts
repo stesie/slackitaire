@@ -62,8 +62,10 @@ function handleUserInput(input: string, channel: string) {
       boards[channel] = applyTurnList(boards[channel], turnList);
       return `\`\`\`${new AsciiRenderer().render(boards[channel])}\`\`\``;
     } catch (e) {
-      console.warn("board update failed", e);
-      return "I'm afraid this turn doesn't seem to be valid :scream:";
+      if (!(e instanceof Error)) {
+        throw e;
+      }
+      return `I'm afraid this turn doesn't seem to be valid :scream:\nThe rule engine chuntered like _${e.message}_`;
     }
   } catch (e) {
     /* probably the input wasn't a turn list, ... ignore :) */
