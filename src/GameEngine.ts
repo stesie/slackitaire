@@ -1,6 +1,7 @@
 import { Board } from "./board/Board";
 import { DiamondBoard } from "./board/DiamondBoard";
 import { EnglishBoard } from "./board/EnglishBoard";
+import { EuropeanBoard } from "./board/EuropeanBoard";
 import { countPegs } from "./countPegs";
 import { AsciiRenderer } from "./render/AsciiRenderer";
 import { applyTurnList, turnListFromString } from "./rules";
@@ -54,10 +55,15 @@ Here's the initial board: \`\`\`\n${new AsciiRenderer().render(
       return `\`\`\`${new AsciiRenderer().render(this.boards[channel])}\`\`\``;
     }
 
+    if (input === "european") {
+      this.boards[channel] = new EuropeanBoard();
+      return `\`\`\`${new AsciiRenderer().render(this.boards[channel])}\`\`\``;
+    }
+
     if (input === "help") {
       return `Start a new game with \`start\`.  Then try turns like \`b4-d4\`.
 To just reprint the game, try \`rerender\`.
-If you're fancy, you might want to try \`diamond\` :gem:`;
+If you're fancy, you might want to try \`diamond\` :gem: or \`european\` :flag-eu:`;
     }
 
     return "Sorry.  I didn't get that. Maybe try `help`.";
