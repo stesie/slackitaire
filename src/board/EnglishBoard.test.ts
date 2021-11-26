@@ -32,3 +32,25 @@ describe("#isValidPosition", () => {
     expect(() => new EnglishBoard().isValidPosition(x, y)).toThrow();
   });
 });
+
+describe("#hasPegAt", () => {
+  it("initially has no peg right in the middle", () => {
+    expect(new EnglishBoard().hasPegAt(3, 3)).toBe(false);
+  });
+
+  it("returns true if there is a peg", () => {
+    expect(new EnglishBoard().hasPegAt(2, 2)).toBe(true);
+  });
+});
+
+describe("#withPegAt", () => {
+  it("adds a peg at the position", () => {
+    expect(new EnglishBoard().withPegAt(3, 3).hasPegAt(3, 3)).toBe(true);
+  });
+});
+
+describe("#withoutPegAt", () => {
+  it("removes a peg from the position", () => {
+    expect(new EnglishBoard().withoutPegAt(3, 1).hasPegAt(3, 1)).toBe(false);
+  });
+});
