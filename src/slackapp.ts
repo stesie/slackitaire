@@ -23,7 +23,10 @@ app.message(async ({ message, say }) => {
     return;
   }
 
-  if (msg.channel_type === "channel" && !msg.text.includes("<@U02NGJNHQCW>")) {
+  if (
+    message.channel_type === "channel" &&
+    !msg.text.includes("<@U02NGJNHQCW>")
+  ) {
     console.debug("ignoring message not directed at me", msg.text);
     return;
   }
