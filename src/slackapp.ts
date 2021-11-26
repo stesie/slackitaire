@@ -5,7 +5,12 @@ import { App } from "@slack/bolt";
 import { Board } from "./board/Board";
 import { EnglishBoard } from "./board/EnglishBoard";
 import { AsciiRenderer } from "./render/AsciiRenderer";
-import { turn, turnFromString } from "./GameEngine";
+import {
+  applyTurnList,
+  turn,
+  turnFromString,
+  turnListFromString,
+} from "./GameEngine";
 
 const app = new App({
   token: process.env.SLACK_BOT_TOKEN,
@@ -50,14 +55,18 @@ function handleUserInput(input: string, channel: string) {
     )}\`\`\`\nNow try a turn like \`b4-d4\`.`;
   }
 
-  if (input.match(/^([a-z])(\d+)-([a-z])(\d+)$/)) {
+  try {
+    const turnList = turnListFromString(input);
+
     try {
-      boards[channel] = turn(boards[channel], turnFromString(input));
+      boards[channel] = applyTurnList(boards[channel], turnList);
       return `\`\`\`${new AsciiRenderer().render(boards[channel])}\`\`\``;
     } catch (e) {
       console.warn("board update failed", e);
       return "I'm afraid this turn doesn't seem to be valid :scream:";
     }
+  } catch (e) {
+    /* probably the input wasn't a turn list, ... ignore :) */
   }
 
   if (input === "rerender") {

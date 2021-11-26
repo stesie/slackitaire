@@ -22,6 +22,23 @@ export function turnFromString(str: string): Turn {
   };
 }
 
+export function turnListFromString(str: string): Turn[] {
+  return str.split(/,\s*/).flatMap((x) => {
+    const result = [];
+
+    do {
+      result.push(turnFromString(x.substr(0, 5)));
+      x = x.substr(3);
+    } while (x.length >= 5);
+
+    return result;
+  });
+}
+
+export function applyTurnList(board: Board, turnList: Turn[]): Board {
+  return turnList.reduce(turn, board);
+}
+
 export function turn(board: Board, turn: Turn): Board {
   if (!board.isValidPosition(turn.startX, turn.startY)) {
     throw new Error("start position is not valid");

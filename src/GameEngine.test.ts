@@ -1,5 +1,5 @@
 import { EnglishBoard } from "./board/EnglishBoard";
-import { turn, Turn, turnFromString } from "./GameEngine";
+import { turn, Turn, turnFromString, turnListFromString } from "./GameEngine";
 
 describe("#turnFromString", () => {
   it("converts string to Turn interface", () => {
@@ -9,6 +9,70 @@ describe("#turnFromString", () => {
       endX: 3,
       endY: 3,
     });
+  });
+});
+
+describe("#turnListFormString", () => {
+  it("can decode a single turn", () => {
+    expect(turnListFromString("b4-d4")).toStrictEqual([
+      {
+        startX: 1,
+        startY: 3,
+        endX: 3,
+        endY: 3,
+      },
+    ]);
+  });
+
+  it("can decode a multi-turns", () => {
+    expect(turnListFromString("b4-d4-f4")).toStrictEqual([
+      {
+        startX: 1,
+        startY: 3,
+        endX: 3,
+        endY: 3,
+      },
+      {
+        startX: 3,
+        startY: 3,
+        endX: 5,
+        endY: 3,
+      },
+    ]);
+  });
+
+  it("can decode multiple comma-separated turns", () => {
+    expect(turnListFromString("b4-d4,d4-f4")).toStrictEqual([
+      {
+        startX: 1,
+        startY: 3,
+        endX: 3,
+        endY: 3,
+      },
+      {
+        startX: 3,
+        startY: 3,
+        endX: 5,
+        endY: 3,
+      },
+    ]);
+  });
+
+  it("allows for whitespace after the comma", () => {
+    expect(turnListFromString("b4-d4,  d4-f4")).toStrictEqual([
+      {
+        startX: 1,
+        startY: 3,
+        endX: 3,
+        endY: 3,
+      },
+      {
+        startX: 3,
+        startY: 3,
+        endX: 5,
+        endY: 3,
+      },
+    ]);
   });
 });
 
