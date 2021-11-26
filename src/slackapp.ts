@@ -12,25 +12,29 @@ const app = new App({
 const engine = new GameEngine();
 
 app.message(async ({ message, say }) => {
-  if (message.subtype !== undefined) {
-    console.debug("ignoring message w/ subtype", message.subtype);
+  const msg = message.subtype === "message_changed" ? message.message : message;
+
+  if (msg.subtype !== undefined) {
+    console.debug("ignoring message w/ subtype", msg.subtype);
     return;
   }
 
-  if (!message.text) {
+  if (!msg.text) {
     return;
   }
 
-  if (
-    message.channel_type === "channel" &&
-    !message.text.includes("<@U02NGJNHQCW>")
-  ) {
-    console.debug("ignoring message not directed at me", message.text);
+  if (msg.channel_type === "channel" && !msg.text.includes("<@U02NGJNHQCW>")) {
+    console.debug("ignoring message not directed at me", msg.text);
     return;
   }
 
-  const input = message.text.replace("<@U02NGJNHQCW>", "").trim();
-  const reply = engine.handleUserInput(input, message.channel);
+  if (message.subtype === "message_changed") {
+    await say("ignoring requests trying to rewrite history :smirk:");
+    return;
+  }
+
+  const input = msg.text.replace("<@U02NGJNHQCW>", "").trim().toLowerCase();
+  const reply = engine.handleUserInput(input, msg.channel);
 
   await say(reply);
 });
